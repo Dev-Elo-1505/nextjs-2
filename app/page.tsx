@@ -1,6 +1,6 @@
 'use client'
+import AddPost from "@/components/AddPost";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 
 interface Post {
   id: number;
@@ -8,14 +8,13 @@ interface Post {
   body: string;
 }
 
-
-export default function Home() {
-
-  const fetchPosts = async () => {
+const fetchPosts = async () => {
     const response = await fetch('https://dummyjson.com/posts')
     const data = await response.json()
-    return data.posts;
+    return data.posts
   }
+
+export default function Home() {
   const { isPending, error, data } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts
@@ -33,7 +32,8 @@ export default function Home() {
   return (
  <div>
 <h1>Welcome to the Party!</h1>
-{data?.map((post: Post) => (
+<AddPost />
+{data.map((post: Post) => (
   <div key={post.id}>
     <h2>{post.title}</h2>
     <p>{post.body}</p>
