@@ -1,4 +1,5 @@
 import TodoForm from "@/components/TodoForm";
+import TodoList from "@/components/TodoList";
 import { connectDB } from "@/lib/db";
 import { CheckCircle } from "lucide-react";
 
@@ -22,6 +23,7 @@ const TodoPage = async () => {
         </header>
         <section className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm">
           <TodoForm />
+          <TodoList />
         </section>
         <footer className="pt-8 text-center border-t border-slate-200 dark:border-zinc-800">
           <p className="text-sm text-slate-400 dark:text-zinc-500">

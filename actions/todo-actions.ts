@@ -23,3 +23,15 @@ export const addTodo = async (data: TodoType) => {
     };
   }
 };
+
+export const getTodos = async () => {
+  await connectDB();
+
+  try {
+    const todos = Todo.find({}).sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify(todos));
+  } catch (error) {
+    throw new Error("Failed to load todos");
+    console.error("Failed to load todos");
+  }
+};

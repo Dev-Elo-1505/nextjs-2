@@ -10,3 +10,4 @@ export const todoActionSchema = z.object({
 });
 
 export type TodoType = z.infer<typeof todoSchema>;
+export type TodoActionType = z.infer<typeof todoActionSchema>;

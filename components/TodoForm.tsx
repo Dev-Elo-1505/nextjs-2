@@ -3,16 +3,18 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addTodo } from "@/actions/todo-actions";
 import { TodoType } from "@/schemas/todo-schema";
 import { toast } from "sonner";
 
 const TodoForm = () => {
+  const queryClient = useQueryClient();
   const [title, setTitle] = useState("");
   const mutation = useMutation({
     mutationFn: (data: TodoType) => addTodo(data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success("Todo added successfully");
     },
     onError: () => {
