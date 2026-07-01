@@ -1,8 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import TodoItem, { TodoProps } from "./TodoItem";
+import TodoItem from "./TodoItem";
 import { getTodos } from "@/actions/todo-actions";
 import { Loader2 } from "lucide-react";
+import { ITodo } from "@/schemas/todo-schema";
 
 const TodoList = () => {
   const {
@@ -27,7 +28,7 @@ const TodoList = () => {
     );
   }
 
-  if (!todos && todos.length === 0) {
+  if (!todos || todos.length === 0) {
     return (
       <div className="text-center p-8 text-muted-foreground">
         No task yet, Add one to get started
@@ -37,7 +38,7 @@ const TodoList = () => {
 
   return (
     <div className="flex-1">
-      {todos.map((todo: TodoProps) => (
+      {todos.map((todo: ITodo) => (
         <TodoItem key={todo._id} todo={todo} />
       ))}
     </div>

@@ -28,10 +28,44 @@ export const getTodos = async () => {
   await connectDB();
 
   try {
-    const todos = Todo.find({}).sort({ createdAt: -1 });
+    const todos = await Todo.find({}).sort({ createdAt: -1 });
     return JSON.parse(JSON.stringify(todos));
   } catch (error) {
-    throw new Error("Failed to load todos");
     console.error("Failed to load todos");
+    throw new Error("Failed to load todos");
+  }
+};
+
+export const toggleTodo = async ({
+  _id,
+  completed,
+}: {
+  _id: string;
+  completed: boolean;
+}) => {
+  await connectDB();
+
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      _id,
+      { completed },
+      { new: true },
+    );
+    return JSON.parse(JSON.stringify(updatedTodo));
+  } catch (error) {
+    console.error("Failed to toggle todos");
+    throw new Error("Failed to toggle todos");
+  }
+};
+
+export const deleteTodo = async (id: string) => {
+  await connectDB();
+
+  try {
+    await Todo.findByIdAndDelete(id);
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to delete todos");
+    throw new Error("Failed to delete todos");
   }
 };

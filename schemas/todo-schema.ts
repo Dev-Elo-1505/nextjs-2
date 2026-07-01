@@ -11,3 +11,9 @@ export const todoActionSchema = z.object({
 
 export type TodoType = z.infer<typeof todoSchema>;
 export type TodoActionType = z.infer<typeof todoActionSchema>;
+
+export interface ITodo {
+  _id: string;
+  title: string;
+  completed: boolean;
+}
